@@ -1,0 +1,66 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "documentContent": {
+                    "description": "The content of the document as represented by a Base64-encoded string.\n\nRestrictions:\n* Maximum 2 pages.\n* File size must be no less than 1000 bytes and no greater than 10 MB.\n* File format must be either a jpeg, jpg, pdf, or png.",
+                    "format": "byte",
+                    "type": "string"
+                },
+                "documentDetail": {
+                    "description": "Details of the document being submitted.",
+                    "properties": {
+                        "accountHolderCode": {
+                            "description": "The code of account holder, to which the document applies.",
+                            "type": "string"
+                        },
+                        "bankAccountUUID": {
+                            "description": "The unique ID of the Bank Account to which the document applies.\n>Required if the documentType is `BANK_STATEMENT` (i.e., a document is being submitted in order to verify a bank account).\n\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on when a document should be submitted in order to verify a bank account.",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the document.",
+                            "type": "string"
+                        },
+                        "documentType": {
+                            "description": "The type of document.\nPermitted values:\n* `ID_CARD` denotes an image containing both the front and back of the ID card.\n* `ID_CARD_FRONT` denotes an image containing only the front of the ID card. In order for a document to be usable, both the `ID_CARD_FRONT` and `ID_CARD_BACK` must be submitted.\n* `ID_CARD_BACK` denotes an image containing only the back of the ID card. In order for a document to be usable, both the `ID_CARD_FRONT` and `ID_CARD_BACK` must be submitted.\n* `DRIVING_LICENCE` denotes an image containing both the front and back of the driving licence.\n* `DRIVING_LICENCE_FRONT` denotes an image containing only the front of the driving licence. In order for a document to be usable, both the `DRIVING_LICENCE_FRONT` and `DRIVING_LICENCE_BACK` must be submitted.\n* `DRIVING_LICENCE_BACK` denotes an image containing only the back of the driving licence. In order for a document to be usable, both the `DRIVING_LICENCE_FRONT` and `DRIVING_LICENCE_FRONT` must be submitted.\n\n>Please refer to [Verification checks](https://docs.adyen.com/developers/marketpay/onboarding-and-verification/verification-checks) for details on when each document type should be submitted.",
+                            "enum": [
+                                "BANK_STATEMENT",
+                                "BSN",
+                                "DRIVING_LICENCE",
+                                "DRIVING_LICENCE_BACK",
+                                "DRIVING_LICENCE_FRONT",
+                                "ID_CARD",
+                                "ID_CARD_BACK",
+                                "ID_CARD_FRONT",
+                                "NHIS",
+                                "PASSPORT",
+                                "SSN"
+                            ],
+                            "type": "string"
+                        },
+                        "filename": {
+                            "description": "Filename of the document.",
+                            "type": "string"
+                        },
+                        "shareholderCode": {
+                            "description": "The code of the shareholder, to which the document applies.\n>Required if the account holder referred to by the `accountHolderCode` has a `legalEntity` of type `Business` and the `documentType` is either `PASSPORT`, `ID_CARD`, `ID_CARD_FRONT`, `ID_CARD_BACK`, `DRIVING_LICENCE`, `DRIVING_LICENCE_FRONT`, `DRIVING_LICENCE_BACK` (i.e. a document is being submitted in order to verify a shareholder).\n\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on when a document should be submitted in order to verify a shareholder.",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "accountHolderCode",
+                        "documentType",
+                        "filename"
+                    ]
+                }
+            },
+            "required": [
+                "documentDetail",
+                "documentContent"
+            ],
+            "type": "object"
+        }
+    }
+}

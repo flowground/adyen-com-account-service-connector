@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "accountHolderCode": {
+                    "description": "The code of the Account Holder for which to retrieve the documents.",
+                    "type": "string"
+                },
+                "bankAccountUUID": {
+                    "description": "The code of the Bank Account for which to retrieve the documents.",
+                    "type": "string"
+                },
+                "shareholderCode": {
+                    "description": "The code of the Shareholder for which to retrieve the documents.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "accountHolderCode"
+            ],
+            "type": "object"
+        }
+    }
+}

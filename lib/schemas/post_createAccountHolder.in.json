@@ -1,0 +1,431 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "accountHolderCode": {
+                    "description": "The desired code of the prospective account holder.\n> Must be between three (3) and fifty (50) characters long. Only letters, digits, and hyphens (-) are permitted.",
+                    "type": "string"
+                },
+                "accountHolderDetails": {
+                    "description": "The details of the prospective account holder.",
+                    "properties": {
+                        "address": {
+                            "description": "The address of the account holder.",
+                            "properties": {
+                                "city": {
+                                    "description": "The name of the city.\n>Required if either houseNumberOrName, street, postalCode, or stateOrProvince are provided.",
+                                    "type": "string"
+                                },
+                                "country": {
+                                    "description": "The two-character country code of the address\n>The permitted country codes are defined in ISO-3166-1 alpha-2 (e.g. 'NL').",
+                                    "type": "string"
+                                },
+                                "houseNumberOrName": {
+                                    "description": "The number or name of the house.",
+                                    "type": "string"
+                                },
+                                "postalCode": {
+                                    "description": "The postal code.\n>A maximum of five (5) digits for an address in the USA, or a maximum of ten (10) characters for an address in all other countries.\n>Required if either houseNumberOrName, street, city, or stateOrProvince are provided.",
+                                    "type": "string"
+                                },
+                                "stateOrProvince": {
+                                    "description": "The abbreviation of the state or province.\n>Two (2) characters for an address in the USA or Canada, or a maximum of three (3) characters for an address in all other countries.\n>Required for an address in the USA or Canada if either houseNumberOrName, street, city, or postalCode are provided.",
+                                    "type": "string"
+                                },
+                                "street": {
+                                    "description": "The name of the street.\n>The house number should not be included in this field; it should be separately provided via `houseNumberOrName`.\n>Required if either houseNumberOrName, city, postalCode, or stateOrProvince are provided.",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "country"
+                            ]
+                        },
+                        "bankAccountDetails": {
+                            "description": "Each of the the bank accounts associated with the account holder.\n> Each array entry should represent one bank account.\n> For comprehensive detail regarding the required `BankAccountDetail` fields, please refer to the [KYC Verification documentation](https://docs.adyen.com/developers/marketpay/onboarding-and-verification/verification-checks).",
+                            "items": {
+                                "properties": {
+                                    "accountNumber": {
+                                        "description": "The bank account number (without separators).\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "accountType": {
+                                        "description": "The type of bank account.\nOnly applicable to bank accounts held in the USA.\nThe permitted values are: `checking`, `savings`.\n\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "bankAccountName": {
+                                        "description": "The name of the bank account.",
+                                        "type": "string"
+                                    },
+                                    "bankAccountUUID": {
+                                        "description": "The unique identifier (UUID) of the Bank Account.\n>If, during an account holder create or update request, this field is left blank (but other fields provided), a new Bank Account will be created with a procedurally-generated UUID.\n\n>If, during an account holder create request, a UUID is provided, the creation of the Bank Account will fail while the creation of the account holder will continue.\n\n>If, during an account holder update request, a UUID that is not correlated with an existing Bank Account is provided, the update of the account holder will fail.\n\n>If, during an account holder update request, a UUID that is correlated with an existing Bank Account is provided, the existing Bank Account will be updated.\n",
+                                        "type": "string"
+                                    },
+                                    "bankBicSwift": {
+                                        "description": "The bank identifier code.\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "bankCity": {
+                                        "description": "The city in which the bank branch is located.\n\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "bankCode": {
+                                        "description": "The bank code of the banking institution with which the bank account is registered.\n\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "bankName": {
+                                        "description": "The name of the banking institution with which the bank account is held.\n\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "branchCode": {
+                                        "description": "The branch code of the branch under which the bank account is registered. The value to be specified in this parameter depends on the country of the bank account:\n* United States - Routing number\n* United Kingdom - Sort code\n* Germany - Bankleitzahl\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "checkCode": {
+                                        "description": "The check code of the bank account.\n\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "countryCode": {
+                                        "description": "The two-letter country code in which the bank account is registered.\n>The permitted country codes are defined in ISO-3166-1 alpha-2 (e.g. 'NL').\n\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "currencyCode": {
+                                        "description": "The currency in which the bank account deals.\n>The permitted currency codes are defined in ISO-4217 (e.g. 'EUR').\n\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "iban": {
+                                        "description": "The international bank account number.\n>The IBAN standard is defined in ISO-13616.\n\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "ownerCity": {
+                                        "description": "The city of residence of the bank account owner.\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "ownerCountryCode": {
+                                        "description": "The country code of the country of residence of the bank account owner.\n>The permitted country codes are defined in ISO-3166-1 alpha-2 (e.g. 'NL').\n\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "ownerDateOfBirth": {
+                                        "description": "The date of birth of the bank account owner.\n",
+                                        "type": "string"
+                                    },
+                                    "ownerHouseNumberOrName": {
+                                        "description": "The house name or number of the residence of the bank account owner.\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "ownerName": {
+                                        "description": "The name of the bank account owner.\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "ownerNationality": {
+                                        "description": "The country code of the country of nationality of the bank account owner.\n>The permitted country codes are defined in ISO-3166-1 alpha-2 (e.g. 'NL').\n\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "ownerPostalCode": {
+                                        "description": "The postal code of the residence of the bank account owner.\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "ownerState": {
+                                        "description": "The state of residence of the bank account owner.\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "ownerStreet": {
+                                        "description": "The street name of the residence of the bank account owner.\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "primaryAccount": {
+                                        "description": "If set to true, the bank account is a primary account.",
+                                        "type": "boolean"
+                                    },
+                                    "taxId": {
+                                        "description": "The tax ID number.\n\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    },
+                                    "urlForVerification": {
+                                        "description": "The URL to be used for bank account verification.\nThis may be generated on bank account creation.\n\n>Refer to the [Onboarding and verification](https://docs.adyen.com/developers/marketpay/onboarding-and-verification) section for details on field requirements.",
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "type": "array"
+                        },
+                        "businessDetails": {
+                            "description": "Details applicable to `Business` legal entities.\nPopulated only if the account holder's legal entity is of type `Business`.\n> Required when being used in a `/createAccountHolder` request in which the legal entity is `Business`.",
+                            "properties": {
+                                "doingBusinessAs": {
+                                    "description": "The registered name of the company (if it differs from the legal name of the company).",
+                                    "type": "string"
+                                },
+                                "legalBusinessName": {
+                                    "description": "The legal name of the company.",
+                                    "type": "string"
+                                },
+                                "registrationNumber": {
+                                    "description": "The registration number of the company.",
+                                    "type": "string"
+                                },
+                                "shareholders": {
+                                    "description": "Each of the shareholders associated with the company.\nEach array entry should represent one shareholder.",
+                                    "items": {
+                                        "properties": {
+                                            "address": {
+                                                "description": "The address of the contact.",
+                                                "properties": {
+                                                    "city": {
+                                                        "description": "The name of the city.\n>Required if either houseNumberOrName, street, postalCode, or stateOrProvince are provided.",
+                                                        "type": "string"
+                                                    },
+                                                    "country": {
+                                                        "description": "The two-character country code of the address\n>The permitted country codes are defined in ISO-3166-1 alpha-2 (e.g. 'NL').",
+                                                        "type": "string"
+                                                    },
+                                                    "houseNumberOrName": {
+                                                        "description": "The number or name of the house.",
+                                                        "type": "string"
+                                                    },
+                                                    "postalCode": {
+                                                        "description": "The postal code.\n>A maximum of five (5) digits for an address in the USA, or a maximum of ten (10) characters for an address in all other countries.\n>Required if either houseNumberOrName, street, city, or stateOrProvince are provided.",
+                                                        "type": "string"
+                                                    },
+                                                    "stateOrProvince": {
+                                                        "description": "The abbreviation of the state or province.\n>Two (2) characters for an address in the USA or Canada, or a maximum of three (3) characters for an address in all other countries.\n>Required for an address in the USA or Canada if either houseNumberOrName, street, city, or postalCode are provided.",
+                                                        "type": "string"
+                                                    },
+                                                    "street": {
+                                                        "description": "The name of the street.\n>The house number should not be included in this field; it should be separately provided via `houseNumberOrName`.\n>Required if either houseNumberOrName, city, postalCode, or stateOrProvince are provided.",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "country"
+                                                ]
+                                            },
+                                            "email": {
+                                                "description": "The e-mail address of the contact.",
+                                                "type": "string"
+                                            },
+                                            "fullPhoneNumber": {
+                                                "description": "The phone number of the contact provided as a single string.  It will be handled as a landline phone.\n**Examples:** \"0031 6 11 22 33 44\", \"+316/1122-3344\", \"(0031) 611223344\"",
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "description": "The name of the contact.",
+                                                "properties": {
+                                                    "firstName": {
+                                                        "description": "The first name.",
+                                                        "type": "string"
+                                                    },
+                                                    "gender": {
+                                                        "description": "The gender.\n>The following values are permitted: `MALE`, `FEMALE`, `UNKNOWN`.",
+                                                        "enum": [
+                                                            "MALE",
+                                                            "FEMALE",
+                                                            "UNKNOWN"
+                                                        ],
+                                                        "maxLength": 1,
+                                                        "minLength": 1,
+                                                        "type": "string"
+                                                    },
+                                                    "infix": {
+                                                        "description": "The name's infix, if applicable.\n>A maximum length of twenty (20) characters is imposed.",
+                                                        "type": "string"
+                                                    },
+                                                    "lastName": {
+                                                        "description": "The last name.",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "firstName",
+                                                    "lastName",
+                                                    "gender"
+                                                ]
+                                            },
+                                            "personalData": {
+                                                "description": "Personal data of the contact.",
+                                                "properties": {
+                                                    "dateOfBirth": {
+                                                        "description": "The date of birth of the person.\nThe date should be in ISO-8601 format yyyy-mm-dd (e.g. 2000-01-31).",
+                                                        "type": "string"
+                                                    },
+                                                    "idNumber": {
+                                                        "description": "An ID number of the person.",
+                                                        "type": "string"
+                                                    },
+                                                    "nationality": {
+                                                        "description": "The nationality of the person represented by a two-character country code.\n>The permitted country codes are defined in ISO-3166-1 alpha-2 (e.g. 'NL').",
+                                                        "maxLength": 2,
+                                                        "minLength": 2,
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "phoneNumber": {
+                                                "description": "The phone number of the contact.",
+                                                "properties": {
+                                                    "phoneCountryCode": {
+                                                        "description": "The two-character country code of the phone number.\n>The permitted country codes are defined in ISO-3166-1 alpha-2 (e.g. 'NL').",
+                                                        "type": "string"
+                                                    },
+                                                    "phoneNumber": {
+                                                        "description": "The phone number.\n>The inclusion of the phone number country code is not necessary.",
+                                                        "type": "string"
+                                                    },
+                                                    "phoneType": {
+                                                        "description": "The type of the phone number.\n>The following values are permitted: `Landline`, `Mobile`, `SIP`, `Fax`.",
+                                                        "enum": [
+                                                            "Fax",
+                                                            "Landline",
+                                                            "Mobile",
+                                                            "SIP"
+                                                        ],
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "phoneCountryCode",
+                                                    "phoneNumber"
+                                                ]
+                                            },
+                                            "shareholderCode": {
+                                                "description": "The unique identifier (UUID) of the Shareholder.\n>**If, during an Account Holder create or update request, this field is left blank (but other fields provided), a new Shareholder will be created with a procedurally-generated UUID.**\n\n>**If, during an Account Holder create request, a UUID is provided, the creation of the Shareholder will fail while the creation of the Account Holder will continue.**\n\n>**If, during an Account Holder update request, a UUID that is not correlated with an existing Shareholder is provided, the update of the Shareholder will fail.**\n\n>**If, during an Account Holder update request, a UUID that is correlated with an existing Shareholder is provided, the existing Bank Account will be updated.**\n",
+                                                "type": "string"
+                                            },
+                                            "webAddress": {
+                                                "description": "The URL of the website of the contact.",
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "array"
+                                },
+                                "taxId": {
+                                    "description": "The tax ID of the company.",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "email": {
+                            "description": "The email address of the account holder.",
+                            "type": "string"
+                        },
+                        "fullPhoneNumber": {
+                            "description": "The phone number of the account holder provided as a single string. It will be handled as a landline phone.\n**Examples:** \"0031 6 11 22 33 44\", \"+316/1122-3344\", \"(0031) 611223344\"",
+                            "type": "string"
+                        },
+                        "individualDetails": {
+                            "description": "Details applicable to `Individual` legal entities.\nPopulated only if the account holder's legal entity is of type `Individual`.\n> Required when being used in a `/createAccountHolder` request in which the legal entity is `Individual`.",
+                            "properties": {
+                                "name": {
+                                    "description": "The name of the individual.",
+                                    "properties": {
+                                        "firstName": {
+                                            "description": "The first name.",
+                                            "type": "string"
+                                        },
+                                        "gender": {
+                                            "description": "The gender.\n>The following values are permitted: `MALE`, `FEMALE`, `UNKNOWN`.",
+                                            "enum": [
+                                                "MALE",
+                                                "FEMALE",
+                                                "UNKNOWN"
+                                            ],
+                                            "maxLength": 1,
+                                            "minLength": 1,
+                                            "type": "string"
+                                        },
+                                        "infix": {
+                                            "description": "The name's infix, if applicable.\n>A maximum length of twenty (20) characters is imposed.",
+                                            "type": "string"
+                                        },
+                                        "lastName": {
+                                            "description": "The last name.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "firstName",
+                                        "lastName",
+                                        "gender"
+                                    ]
+                                },
+                                "personalData": {
+                                    "description": "Personal information of the individual.",
+                                    "properties": {
+                                        "dateOfBirth": {
+                                            "description": "The date of birth of the person.\nThe date should be in ISO-8601 format yyyy-mm-dd (e.g. 2000-01-31).",
+                                            "type": "string"
+                                        },
+                                        "idNumber": {
+                                            "description": "An ID number of the person.",
+                                            "type": "string"
+                                        },
+                                        "nationality": {
+                                            "description": "The nationality of the person represented by a two-character country code.\n>The permitted country codes are defined in ISO-3166-1 alpha-2 (e.g. 'NL').",
+                                            "maxLength": 2,
+                                            "minLength": 2,
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "merchantCategoryCode": {
+                            "description": "The Merchant Category Code of the account holder.\n> If not specified in the request, this will be derived from the marketplace account (which is configured by Adyen).",
+                            "type": "string"
+                        },
+                        "metadata": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "A set of key and value pairs for general use by the account holder or merchant.\nThe keys do not have specific names and may be used for storing miscellaneous data as desired.\n> The values being stored have a maximum length of eighty (80) characters and will be truncated if necessary.\n> Note that during an update of metadata, the omission of existing key-value pairs will result in the deletion of those key-value pairs.",
+                            "type": "object"
+                        },
+                        "webAddress": {
+                            "description": "The URL of the website of the account holder.",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "fullPhoneNumber",
+                        "email"
+                    ]
+                },
+                "createDefaultAccount": {
+                    "description": "If set to true, an account with the default options is created for this account holder.\n**Default Value:** true",
+                    "type": "boolean"
+                },
+                "description": {
+                    "description": "A description of the prospective account holder.",
+                    "type": "string"
+                },
+                "legalEntity": {
+                    "description": "The entity type.\nPermitted values: `Business`, `Individual`\n\nIf an account holder is 'Business', then `accountHolderDetails.businessDetails` must be provided, as well as at least one entry in the `accountHolderDetails.businessDetails.shareholders` list.\n\nIf an account holder is 'Individual', then `accountHolderDetails.individualDetails` must be provided.",
+                    "enum": [
+                        "Business",
+                        "Individual",
+                        "NonProfit"
+                    ],
+                    "type": "string"
+                },
+                "primaryCurrency": {
+                    "description": "The currency with which the prospective account holder primarily deals.",
+                    "type": "string"
+                },
+                "processingTier": {
+                    "description": "The starting [processing tier](https://docs.adyen.com/developers/marketpay/onboarding-and-verification/verification-checks#tiers) for the prospective account holder.",
+                    "format": "int32",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "accountHolderCode",
+                "legalEntity",
+                "accountHolderDetails",
+                "description"
+            ],
+            "type": "object"
+        }
+    }
+}

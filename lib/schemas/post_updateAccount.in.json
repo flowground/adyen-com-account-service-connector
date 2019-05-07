@@ -1,0 +1,53 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "accountCode": {
+                    "description": "The code of the account to update.",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "A description of the account.",
+                    "type": "string"
+                },
+                "payoutSchedule": {
+                    "description": "The details of the payout schedule, to which the account should be updated.",
+                    "properties": {
+                        "action": {
+                            "description": "Direction on how to handle any payouts that have already been scheduled.\nPermitted values:\n* `CLOSE` will close the existing batch of payouts.\n* `UPDATE` will reschedule the existing batch to the new schedule.\n* `NOTHING` (**default**) will allow the payout to proceed.",
+                            "enum": [
+                                "CLOSE",
+                                "NOTHING",
+                                "UPDATE"
+                            ],
+                            "type": "string"
+                        },
+                        "reason": {
+                            "description": "The reason for the payout schedule update.\n> This field is required when the `schedule` parameter is set to `HOLD`.",
+                            "type": "string"
+                        },
+                        "schedule": {
+                            "description": "The payout schedule to which the account is to be updated.\nPermitted values: `DEFAULT`, `HOLD`, `DAILY`, `WEEKLY`, `MONTHLY`.",
+                            "enum": [
+                                "DAILY",
+                                "DEFAULT",
+                                "HOLD",
+                                "MONTHLY",
+                                "WEEKLY"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "schedule"
+                    ]
+                }
+            },
+            "required": [
+                "accountCode"
+            ],
+            "type": "object"
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "accountHolderCode": {
+                    "description": "The code of the Account Holder to be closed.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "accountHolderCode"
+            ],
+            "type": "object"
+        }
+    }
+}

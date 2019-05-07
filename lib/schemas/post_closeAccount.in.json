@@ -1,0 +1,17 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "accountCode": {
+                    "description": "The code of account to be closed.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "accountCode"
+            ],
+            "type": "object"
+        }
+    }
+}

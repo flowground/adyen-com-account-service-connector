@@ -1,0 +1,39 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "accountHolderCode": {
+                    "description": "The code of Account Holder under which to create the account.",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "A description of the account.",
+                    "type": "string"
+                },
+                "payoutSchedule": {
+                    "description": "The payout schedule of the prospective account.\n>Permitted values: `DEFAULT`, `HOLD`, `DAILY`, `WEEKLY`, `MONTHLY`.",
+                    "enum": [
+                        "DAILY",
+                        "DEFAULT",
+                        "HOLD",
+                        "MONTHLY",
+                        "WEEKLY"
+                    ],
+                    "type": "string"
+                },
+                "payoutScheduleReason": {
+                    "description": "The reason for the payout schedule choice.\n>Required if the payoutSchedule is `HOLD`.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "accountHolderCode",
+                "payoutSchedule",
+                "payoutScheduleReason",
+                "description"
+            ],
+            "type": "object"
+        }
+    }
+}

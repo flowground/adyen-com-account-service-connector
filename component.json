@@ -1,0 +1,272 @@
+{
+    "title": "Adyen MarketPay Account Service",
+    "description": "The MarketPay Account API provides endpoints for managing MarketPay account-related entities. These related entities include account holders, accounts, bank accounts, shareholders, and KYC-related documents. The management operations include actions such as creation, retrieval, updating, and deletion of them.\n\nFor further information on MarketPay API, visit the [MarketPay documentation](https://docs.adyen.com/developers/marketpay/marketpay-overview).\n## Authentication\nTo connect to the MarketPay API, you must use basic authentication credentials of your web service user. If you don't have one, please contact the [Adyen Support Team](https://support.adyen.com/hc/en-us/requests/new). Then use its credentials to authenticate your request, for example:\n\n```\ncurl\n-U \"ws@Company.YourCompany\":\"YourWsPassword\" \\\n-H \"Content-Type: application/json\" \\\n...\n```\nNote that when going live, you need to generate new web service user credentials to access the [live endpoints](https://docs.adyen.com/developers/api-reference/live-endpoints).\n\n## Versioning\nMarketPay API supports versioning of its endpoints through a version suffix in the endpoint URL. This suffix has the following format: \"vXX\", where XX is the version number.\n\nFor example:\n```\nhttps://cal-test.adyen.com/cal/services/Account/v4/createAccountHolder\n```",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/adyen.com/AccountService/4/openapi.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://cal-test.adyen.com/cal/services/Account/v4",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "post_closeAccount": {
+            "main": "./lib/actions/post_closeAccount.js",
+            "title": "Close an existing account under an account holder.",
+            "description": "This endpoint is used to close an existing account under an account holder. If an account is closed, it may not process transactions or have its funds paid out,and it may not be reopened. Any payments made to a closed account will be directed to the merchant's liable account.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_closeAccount.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_closeAccountHolder": {
+            "main": "./lib/actions/post_closeAccountHolder.js",
+            "title": "Close an existing account holder.",
+            "description": "This endpoint is used to close an existing account holder and its accounts. If an account holder is closed, it may not process transactions or pay out funds, and it may not be reopened. Any payments made to a closed account will be directed to the merchant's liable account.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_closeAccountHolder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_createAccount": {
+            "main": "./lib/actions/post_createAccount.js",
+            "title": "Create a new account under an existing account holder.",
+            "description": "This endpoint is used to create an account under an existing account holder. An account holder may have multiple accounts.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_createAccount.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_createAccountHolder": {
+            "main": "./lib/actions/post_createAccountHolder.js",
+            "title": "Create a new account holder.",
+            "description": "This endpoint is used to create an account holder. Each account holder represents a single sub-merchant, and each sub-merchant must be represented by an account holder. Depending on the legal entity type, different details are required to be provided in the call to this endpoint.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_createAccountHolder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_deleteBankAccounts": {
+            "main": "./lib/actions/post_deleteBankAccounts.js",
+            "title": "Delete bank accounts of an existing account holder.",
+            "description": "This endpoint is used to delete existing bank accounts from an account holder. For this, pass the `accountHolderCode` you got on the account holder creation, and one or more `bankAccountUUIDs` specifying bank accounts to delete.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_deleteBankAccounts.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_deleteShareholders": {
+            "main": "./lib/actions/post_deleteShareholders.js",
+            "title": "Delete shareholders of an existing account holder.",
+            "description": "This endpoint is used to delete existing shareholders from an account holder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_deleteShareholders.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_getAccountHolder": {
+            "main": "./lib/actions/post_getAccountHolder.js",
+            "title": "Retrieve the details of an account holder.",
+            "description": "This endpoint is used to retrieve the details of an account holder.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_getAccountHolder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_getUploadedDocuments": {
+            "main": "./lib/actions/post_getUploadedDocuments.js",
+            "title": "Retrieve the uploaded documents of an existing account holder.",
+            "description": "This endpoint is used to retrieve documents previously uploaded for use in the KYC Verification of an account holder.\n\nFor further information regarding KYC Verification, please refer to [Verification checks](https://docs.adyen.com/developers/marketpay/onboarding-and-verification/verification-checks).",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_getUploadedDocuments.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_suspendAccountHolder": {
+            "main": "./lib/actions/post_suspendAccountHolder.js",
+            "title": "Suspend an existing account holder.",
+            "description": "This endpoint is used to suspend an existing account holder. If an account holder is suspended, it may not process transactions or pay out funds. Any payments made to a suspended account holder will be directed to the merchant's liable account.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_suspendAccountHolder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_unSuspendAccountHolder": {
+            "main": "./lib/actions/post_unSuspendAccountHolder.js",
+            "title": "Reinstate a disabled account holder.",
+            "description": "This endpoint is used to reinstate an existing account holder, which has been suspended through the `/suspendAccountHolder` endpoint. An account holder which has been suspended due to KYC verification issues cannot be reinstated through this endpoint.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_unSuspendAccountHolder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_updateAccount": {
+            "main": "./lib/actions/post_updateAccount.js",
+            "title": "Update an existing account under an account holder.",
+            "description": "This endpoint is used to update the description or payout schedule of an existing account.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_updateAccount.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_updateAccountHolder": {
+            "main": "./lib/actions/post_updateAccountHolder.js",
+            "title": "Update an existing account holder.",
+            "description": "This endpoint is used to update the `accountHolderDetails` or `processingTier` of an account holder.\n\nIf updating the `accountHolderDetails`, only the details which have been provided will be updated. Other details will be left as-is with the exception of the following fields:\n* `accountHolderDetails.address`\n* `accountHolderDetails.phoneNumber`\n* `accountHolderDetails.bankAccountDetails.BankAccountDetail`\n* `accountHolderDetails.businessDetails.shareholders.ShareholderContact`, which requires all fields necessary for validation (i.e. in order to update only the `accountHolderDetails.address.postalCode`, the fields `accountHolderDetails.address.country`, `.city`, `.street`, `.postalCode`, and possibly `.stateOrProvince` must be provided as well, so that the address can be properly validated).\n\nNote that this endpoint can also be used to create new bank accounts. For this, provide details of a bank account without providing a `bankAccountUUID`.\n\nSimilarly, it can also be used to create new shareholders by providing details of a shareholder without providing a `shareholderCode`.\n> The updating of the `metadata` field will overwite all of the existing account holder metadata. In order to update an existing metadata key-value pair, all otherkey-value pairs should be provided in order to not delete them.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_updateAccountHolder.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_updateAccountHolderState": {
+            "main": "./lib/actions/post_updateAccountHolderState.js",
+            "title": "Update the state of an existing account holder.",
+            "description": "This endpoint is used to disable or enable the processing or payout state of an account holder. It cannot be used to enable an account holder whose processing or payout state has not been disabled through this endpoint.\n\nFor further information regarding processing and payout states of an account holder, please refer to the [MarketPay documentation](https://docs.adyen.com/developers/marketpay/marketpay-overview).",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_updateAccountHolderState.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_uploadDocument": {
+            "main": "./lib/actions/post_uploadDocument.js",
+            "title": "Upload a document for an existing account holder.",
+            "description": "This endpoint is used to upload a document for use in the KYC verification of an account holder.\n\nFor further information regarding KYC Verification, please refer to [Verification checks](https://docs.adyen.com/developers/marketpay/onboarding-and-verification/verification-checks).",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_uploadDocument.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
